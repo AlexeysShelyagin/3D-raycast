@@ -17,4 +17,7 @@ render_distance = 200
 rotate_angle = 10
 move_step = 10
 
-window_resolution = (700, 700)
+window_resolution = screen_resolution
+
+debug_mode = 1
+debug_screen_resolution = (200, 300)

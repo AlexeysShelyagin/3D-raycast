@@ -8,11 +8,13 @@ from Ray_operations import *
 from Config import *
 from File_loader import objects
 
-screen = pygame.display.set_mode( window_resolution )
+if debug_mode:
+    screen = pygame.display.set_mode( debug_screen_resolution )
+else:
+    screen = pygame.display.set_mode( window_resolution )
+
 screen.fill( BG_GREY )
 pygame.display.update()
-print("кря")
-
 
 @njit
 def find_ray_end (renD, angX, angY):
@@ -22,6 +24,20 @@ def find_ray_end (renD, angX, angY):
     rayY = renD * sin(angX) * sin(angY)
     rayZ = renD * cos(angY)
     return (rayX, rayY, rayZ)
+
+ray_x_ang = []
+ray_y_ang = []
+
+def pre_calc_angles (cam: camera):
+    kx = 2 * tan(radians(cam.fov/2)) / cam.x_res
+    ky = 2 * tan(radians(cam.fov/2)) / cam.y_res
+
+    mid = radians(cam.fov/2)
+
+    for x in range(cam.x_res):
+        ray_x_ang.append( arctan(x*kx) - mid )
+    for y in range(cam.y_res):
+        ray_y_ang.append( arctan(y*ky) - mid )
 
 def render (cam: camera):
     screen.fill( BG_GREY )
@@ -37,7 +53,7 @@ def render (cam: camera):
         for x in range(cam.x_res):
             x_ang = cam.orient_hor + (x - x_mid)*x_ratio
 
-            ray_end = vec3( find_ray_end(cam.renDist, x_ang, y_ang) )
+            ray_end = vec3( find_ray_end(cam.renDist, x_ang, y_ang ) )
             ray_end += cam.pos
             
             if ray_end.z > 10:
@@ -55,5 +71,5 @@ def render (cam: camera):
 
             #pygame.draw.line( screen, RAY_COL, (cam.pos.x + 200, cam.pos.y+500), (ray_end.x + 200, ray_end.y + 500) )
             #pygame.draw.line( screen, RAY_COL, (cam.pos.y + 500, cam.pos.z+500), (ray_end.y + 500, ray_end.z + 500) )
-    print("кря")
+    
     pygame.display.update()

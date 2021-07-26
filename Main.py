@@ -11,14 +11,13 @@ from Config import *
 from Renderer import *
 
 cam1 = camera( screen_resolution, camera_start_pos, camera_start_orientation, default_fov, render_distance)
-print("кря")
-#a = vec3( (1,2,3) )
-#print(str(a.x) + ' ' + str(a.y) + ' ' + str(a.z))
+pre_calc_angles(cam1)
+
 
 running = 1
-print("кря")
 while running:
-    start = timer()
+    if debug_mode:
+        start = timer()
 
     keys = pygame.key.get_pressed()
 
@@ -63,7 +62,9 @@ while running:
         if event.type == pygame.QUIT:
             running = 0
             break
-    tmp = timer() - start
-    if tmp > 0.1:
-        print(tmp)
+
+    if debug_mode:
+        tmp = timer() - start
+        if tmp > 0.1:
+            print(tmp)
 
