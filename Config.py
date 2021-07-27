@@ -8,9 +8,9 @@ RAY_COL = (100, 100, 100)
 SKY = (100, 100, 255)
 GRASS = (50, 255, 50)
 
-camera_start_pos = (0, 0, 0)
-camera_start_orientation = (0, 90)
-screen_resolution = (100, 100)
+camera_start_pos = (-40, 0, 0)
+camera_start_orientation = (-90, 90)
+screen_resolution = (200, 200)
 default_fov = 60
 render_distance = 200
 
@@ -20,4 +20,4 @@ move_step = 10
 window_resolution = screen_resolution
 
 debug_mode = 1
-debug_screen_resolution = (200, 300)
+debug_screen_resolution = (400, 400)
